@@ -1,0 +1,23 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard-router
+  namespace: traefik # Must be the same namespace as the Traefik Pod
+spec:
+  entryPoints:
+    - dashboard # Assuming your HTTP entry point is named 'web'
+  routes:
+    # 1. Route for the /dashboard/ path
+    - match: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: api@internal # Traefik's internal service for its API/dashboard
+          kind: TraefikService
+    
+    # 2. Route that handles the redirect from /dashboard to /dashboard/
+    # This prevents the 404 when the trailing slash is missing
+    - match: PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: personal-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: personal-app
+  template:
+    metadata:
+      labels:
+        app: personal-app
+    spec:
+      containers:
+      - name: flask
+        image: personal-site:local
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: personal-app-service
+spec:
+  selector:
+    app: personal-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
