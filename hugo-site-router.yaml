@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: hugo-site-stripprefix
+  namespace: default
+spec:
+  stripPrefix:
+    prefixes:
+      - /hugo
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: hugo-site-route
+  namespace: default
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: PathPrefix(`/hugo`)
+      kind: Rule
+      middlewares:
+        - name: hugo-site-stripprefix
+      services:
+        - name: hugo-site-service
+          port: 80
