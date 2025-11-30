@@ -17,6 +17,12 @@ spec:
         image: personal-site:local
         ports:
         - containerPort: 5000
+        env:
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: anthropic-api-key
+              key: ANTHROPIC_API_KEY
 ---
 apiVersion: v1
 kind: Service
