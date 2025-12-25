@@ -36,10 +36,9 @@ spec:
         - name: auth
           secret:
             secretName: registry-auth
-            volumes:
-              - name: data
-                persistentVolumeClaim:
-                  claimName: registry-data
+        - name: data
+          persistentVolumeClaim:
+            claimName: registry-data
 ---
 apiVersion: v1
 kind: Service
