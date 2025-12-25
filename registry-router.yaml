@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: registry
   namespace: registry
-  annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
     - host: registry.kenta.ca
