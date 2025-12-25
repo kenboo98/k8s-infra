@@ -18,16 +18,28 @@ spec:
           image: registry:2
           ports:
             - containerPort: 5000
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/registry
           env:
             - name: REGISTRY_STORAGE_DELETE_ENABLED
               value: "true"
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: registry-data
+            - name: REGISTRY_AUTH
+              value: htpasswd
+            - name: REGISTRY_AUTH_HTPASSWD_REALM
+              value: "Registry Realm"
+            - name: REGISTRY_AUTH_HTPASSWD_PATH
+              value: /auth/htpasswd
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/registry
+            - name: auth
+              mountPath: /auth
+          volumes:
+            - name: auth
+              secret:
+                secretName: registry-auth
+                volumes:
+                  - name: data
+                    persistentVolumeClaim:
+                      claimName: registry-data
 ---
 apiVersion: v1
 kind: Service
