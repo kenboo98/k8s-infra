@@ -32,14 +32,14 @@ spec:
               mountPath: /var/lib/registry
             - name: auth
               mountPath: /auth
-          volumes:
-            - name: auth
-              secret:
-                secretName: registry-auth
-                volumes:
-                  - name: data
-                    persistentVolumeClaim:
-                      claimName: registry-data
+      volumes:
+        - name: auth
+          secret:
+            secretName: registry-auth
+            volumes:
+              - name: data
+                persistentVolumeClaim:
+                  claimName: registry-data
 ---
 apiVersion: v1
 kind: Service
