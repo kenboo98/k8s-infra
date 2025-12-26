@@ -1,0 +1,5 @@
+configs:
+  "registry.kenta.ca":
+    auth:
+      username: kenboo 
+      password: UPDATE_ME 
