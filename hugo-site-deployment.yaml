@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hugo-site
-        image: hugo-site:local
+        image: registry.kenta.ca/hugo-site:latest
         ports:
         - containerPort: 80
 ---
