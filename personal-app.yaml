@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask
-        image: personal-site:local
+        image: registry.kenta.ca/personal-site:latest
         ports:
         - containerPort: 5000
         env:
